@@ -36,22 +36,22 @@ with st.form("form_key"):
     col1, col2, col3 = st.columns(3)
 
     col1.write("Choose a starting date")
-    starting_quarter = col1.selectbox(key=1,label="Quarter",
-                             options=quarters)
-    starting_year = col1.slider(key=2,label="Year",min_value=1991,
+    starting_quarter = col1.selectbox(key="start_q",label="Quarter",
+                             options=quarters,index=2)
+    starting_year = col1.slider(key="start_y",value=1991,label="Year",min_value=1991,
                                 max_value=2023,step=1)
     
     col2.write("Choose a end date")
-    ending_quarter = col2.selectbox(key=3,label="Quarter",
+    ending_quarter = col2.selectbox(key="end_q",index=0,label="Quarter",
                              options=quarters)
-    ending_year = col2.slider(key=4,label="Year",min_value=1991,
+    ending_year = col2.slider(key="end_y",value=2023,label="Year",min_value=1991,
                                 max_value=2023,step=1)
     
     col3.write("Choose a location")
     loc = col3.selectbox(key=5, label="Choose a location",
-                         options=locations)
+                         options=locations,index=0)
     
-    submit_btn = st.form_submit_button(label="Analyze")
+    submit_btn = st.form_submit_button(label="Analyze", type="primary")
 
 starting_date = int(str(starting_year)+starting_quarter[-1])
 ending_date = int(str(ending_year)+ending_quarter[-1])
@@ -110,7 +110,3 @@ if (df['date']==starting_date).any() and (df['date']==ending_date).any():
         st.error("Dates don't work. Start date must come before end date", icon="🚨")    
 else:
     st.error('No data available. Check your quarter and year selection', icon="🚨")
-
-
-
-
